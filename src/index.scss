@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Space+Grotesk:wght@300..700&display=swap');
+
+body {
+  margin: 0;
+  font-family: "Nunito Sans", sans-serif;;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--seasalt-to-gunmetal2);
+}
+
+.theme-light {
+  --white-to-gunmetal: #FFFFFF; //elements
+  --seasalt-to-gunmetal2: #FAFAFA; // background
+  --night-to-white: #111517; // text
+  --battleship-gray-to-gunmetal: #858585 // inputs
+}
+
+.theme-dark {
+  --white-to-gunmetal: #2B3945;
+  --seasalt-to-gunmetal2: #202C37;
+  --night-to-white: #FFFFFF;
+  --battleship-gray-to-gunmetal: #2B3945;
+}
+
+#root {
+  background-color: var(--seasalt-to-gunmetal2);
+}
