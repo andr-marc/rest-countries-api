@@ -10,37 +10,48 @@ const client = axios.create({
 
 function CountryCard() {
 
-    const [countries, setCountries] = useState([]);
+    const [countries, setCountries] = useState<any[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-
-
         const getCountries = async () => {
             try {
-                let response = await client.get('all');
-                setCountries(response.data)
-            } catch (error) {
-                console.log(error);
+                const response = await client.get('all');
+                setCountries(response.data);
+            } catch (err) {
+                setError('Failed to fetch countries');
+                console.error(err);
+            } finally {
+                setLoading(false);
             }
-            
-        } 
-
+        };
+        
         getCountries();
-    })
+    }, []);
 
-    return (
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+    if (countries.length === 0) return <p>No countries found</p>;
+
+    return countries && (
         <div className='grid'>
-            {countries.map((country: any) => (
-                <div className='country' key={country.cca2}>
-                    <img src={country.flags.svg} alt={country.flags.alt} />
-                    <div>
-                        <span>{country.name.common}</span>
-                        <h2>{country.population}</h2>
-                        <p>{country.region}</p>
-                        <p>{country.capital}</p>
+            {countries.map((country: any) =>{ 
+                const capitals: string[] = Array.isArray(country.capital) ? country.capital : ['--'];
+                let capital: string = capitals.join("; ");                
+
+                return (
+                    <div className='country' key={country.cca2}>
+                        <img src={country.flags.svg} alt={country.flags.alt} />
+                        <div>
+                            <h2>{country.name.common}</h2>
+                            <span>Population: <p>{country.population}</p></span>
+                            <span>Region: <p>{country.region}</p></span>
+                            <span>Capital: <p>{ capital }</p></span>
+                        </div>
                     </div>
-                </div>
-            ))}
+                )
+            })}
         </div>
     )
 }
