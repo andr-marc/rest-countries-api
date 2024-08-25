@@ -1,4 +1,14 @@
 .App {
-  max-width: 90rem;
-  margin: auto;
+
+  padding: 0 1rem;
+
+  @media (min-width: 576px) {
+    padding: 0 3rem;
+    margin: auto;
+  }
+
+  @media (min-width: 1400px) {
+    max-width: 90rem;
+  }
+  
 }
